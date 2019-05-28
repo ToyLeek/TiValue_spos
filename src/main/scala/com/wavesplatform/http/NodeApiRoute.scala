@@ -26,9 +26,9 @@ case class NodeApiRoute(settings: RestAPISettings,
   }
 
   @Path("/version")
-  @ApiOperation(value = "Version", notes = "Get VSYS node version", httpMethod = "GET")
+  @ApiOperation(value = "Version", notes = "Get TV node version", httpMethod = "GET")
   @ApiResponses(Array(
-    new ApiResponse(code = 200, message = "Json VSYS node version")
+    new ApiResponse(code = 200, message = "Json TV node version")
   ))
   def version: Route = (get & path("version")) {
     complete(Json.obj("version" -> Constants.AgentName))

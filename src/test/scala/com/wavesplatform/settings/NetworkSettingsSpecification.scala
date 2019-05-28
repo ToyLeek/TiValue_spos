@@ -16,11 +16,11 @@ class NetworkSettingsSpecification extends FlatSpec with Matchers {
       """vsys.network {
         |  file: /vsys/peers.dat
         |  bind-address: "127.0.0.1"
-        |  port: 9921
+        |  port: 9121
         |  node-name: "default-node-name"
-        |  declared-address: "127.0.0.1:9921"
+        |  declared-address: "127.0.0.1:9121"
         |  nonce: 0
-        |  known-peers = ["8.8.8.8:9921", "4.4.8.8:9921"]
+        |  known-peers = ["8.8.8.8:9121", "4.4.8.8:9121"]
         |  local-only: no
         |  peers-data-residence-time: 1d
         |  black-list-residence-time: 10m
@@ -43,11 +43,11 @@ class NetworkSettingsSpecification extends FlatSpec with Matchers {
     val networkSettings = config.as[NetworkSettings]("vsys.network")
 
     networkSettings.file should be(Some(new File("/vsys/peers.dat")))
-    networkSettings.bindAddress should be(new InetSocketAddress("127.0.0.1", 9921))
+    networkSettings.bindAddress should be(new InetSocketAddress("127.0.0.1", 9121))
     networkSettings.nodeName should be("default-node-name")
-    networkSettings.declaredAddress should be(Some(new InetSocketAddress("127.0.0.1", 9921)))
+    networkSettings.declaredAddress should be(Some(new InetSocketAddress("127.0.0.1", 9121)))
     networkSettings.nonce should be(0)
-    networkSettings.knownPeers should be(List("8.8.8.8:9921", "4.4.8.8:9921"))
+    networkSettings.knownPeers should be(List("8.8.8.8:9121", "4.4.8.8:9121"))
     networkSettings.peersDataResidenceTime should be(1.day)
     networkSettings.blackListResidenceTime should be(10.minutes)
     networkSettings.maxInboundConnections should be(30)
