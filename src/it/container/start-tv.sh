@@ -7,5 +7,5 @@ echo Default: $DEFAULT_NET_IP
 echo Vsys: $VSYS_NET_IP
 echo Options: $VSYS_OPTS
 
-#java -Dvsys.network.declared-address=$VSYS_NET_IP:$VSYS_PORT $VSYS_OPTS -jar /opt/vsys/vsys.jar /opt/vsys/template.conf
-java -Dvsys.network.declared-address=$DEFAULT_NET_IP:9923 $VSYS_OPTS -jar /opt/vsys/vsys.jar /opt/vsys/template.conf
+#java -Dvsys.network.declared-address=$VSYS_NET_IP:$VSYS_PORT $VSYS_OPTS -jar /opt/tv/tv.jar /opt/tv/template.conf
+java -Dvsys.network.declared-address=$DEFAULT_NET_IP:9923 $VSYS_OPTS -jar /opt/tv/tv.jar /opt/tv/template.conf
