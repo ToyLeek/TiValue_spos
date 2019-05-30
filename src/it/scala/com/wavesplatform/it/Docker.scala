@@ -76,7 +76,7 @@ class Docker(suiteConfig: Config = ConfigFactory.empty) extends AutoCloseable wi
       .build()
 
     val containerConfig = ContainerConfig.builder()
-      .image("systems.v/vsys-core:latest")
+      .image("systems.v/tv-core:latest")
       .exposedPorts(restApiPort, networkPort, matcherApiPort)
       .hostConfig(hostConfig)
       .env(s"VSYS_OPTS=$configOverrides", s"VSYS_PORT=$networkPort")

@@ -14,7 +14,7 @@ class NetworkSettingsSpecification extends FlatSpec with Matchers {
   "NetworkSpecification" should "read values from config" in {
     val config = loadConfig(ConfigFactory.parseString(
       """vsys.network {
-        |  file: /vsys/peers.dat
+        |  file: /tv/peers.dat
         |  bind-address: "127.0.0.1"
         |  port: 9121
         |  node-name: "default-node-name"
@@ -42,7 +42,7 @@ class NetworkSettingsSpecification extends FlatSpec with Matchers {
         |}""".stripMargin))
     val networkSettings = config.as[NetworkSettings]("vsys.network")
 
-    networkSettings.file should be(Some(new File("/vsys/peers.dat")))
+    networkSettings.file should be(Some(new File("/tv/peers.dat")))
     networkSettings.bindAddress should be(new InetSocketAddress("127.0.0.1", 9121))
     networkSettings.nodeName should be("default-node-name")
     networkSettings.declaredAddress should be(Some(new InetSocketAddress("127.0.0.1", 9121)))

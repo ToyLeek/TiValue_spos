@@ -137,7 +137,7 @@ javaOptions in Universal ++= Seq(
   "-J-XX:+ParallelRefProcEnabled",
   "-J-XX:+UseStringDeduplication")
 
-mappings in Universal += (baseDirectory.value / s"tv-${network.value}.conf" -> "doc/vsys.conf.sample")
+mappings in Universal += (baseDirectory.value / s"tv-${network.value}.conf" -> "doc/tv.conf.sample")
 packageSource := sourceDirectory.value / "package"
 upstartScript := {
   val src = packageSource.value / "upstart.conf"

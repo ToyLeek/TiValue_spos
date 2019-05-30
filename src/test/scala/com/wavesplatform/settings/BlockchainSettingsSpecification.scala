@@ -14,7 +14,7 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
   "BlockchainSettings" should "read custom values" in {
     val config = loadConfig(ConfigFactory.parseString(
       """vsys {
-        |  directory = "/vsys"
+        |  directory = "/tv"
         |  blockchain {
         |    minimum-in-memory-diff-blocks = 1
         |    type = CUSTOM
@@ -56,9 +56,9 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
         |}""".stripMargin))
     val settings = BlockchainSettings.fromConfig(config)
 
-    settings.blockchainFile should be(Some(new File("/vsys/data/blockchain.dat")))
-    settings.stateFile should be(Some(new File("/vsys/data/state.dat")))
-    settings.checkpointFile should be(Some(new File("/vsys/data/checkpoint.dat")))
+    settings.blockchainFile should be(Some(new File("/tv/data/blockchain.dat")))
+    settings.stateFile should be(Some(new File("/tv/data/state.dat")))
+    settings.checkpointFile should be(Some(new File("/tv/data/checkpoint.dat")))
     //not snapshot
     settings.minimumInMemoryDiffSize should be(1)
     settings.addressSchemeCharacter should be('C')
@@ -78,7 +78,7 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
   it should "read testnet settings" in {
     val config = loadConfig(ConfigFactory.parseString(
       """vsys {
-        |  directory = "/vsys"
+        |  directory = "/tv"
         |  blockchain {
         |    minimum-in-memory-diff-blocks = 1
         |    type = TESTNET
@@ -86,9 +86,9 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
         |}""".stripMargin))
     val settings = BlockchainSettings.fromConfig(config)
 
-    settings.blockchainFile should be(Some(new File("/vsys/data/blockchain.dat")))
-    settings.stateFile should be(Some(new File("/vsys/data/state.dat")))
-    settings.checkpointFile should be(Some(new File("/vsys/data/checkpoint.dat")))
+    settings.blockchainFile should be(Some(new File("/tv/data/blockchain.dat")))
+    settings.stateFile should be(Some(new File("/tv/data/state.dat")))
+    settings.checkpointFile should be(Some(new File("/tv/data/checkpoint.dat")))
     settings.minimumInMemoryDiffSize should be(1)
     settings.addressSchemeCharacter should be('T')
     settings.functionalitySettings.numOfSlots should be (60)
@@ -116,7 +116,7 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
   it should "read mainnet settings" in {
     val config = loadConfig(ConfigFactory.parseString(
       """vsys {
-        |  directory = "/vsys"
+        |  directory = "/tv"
         |  blockchain {
         |    minimum-in-memory-diff-blocks = 1
         |    type = MAINNET
@@ -124,9 +124,9 @@ class BlockchainSettingsSpecification extends FlatSpec with Matchers {
         |}""".stripMargin))
     val settings = BlockchainSettings.fromConfig(config)
 
-    settings.blockchainFile should be(Some(new File("/vsys/data/blockchain.dat")))
-    settings.stateFile should be(Some(new File("/vsys/data/state.dat")))
-    settings.checkpointFile should be(Some(new File("/vsys/data/checkpoint.dat")))
+    settings.blockchainFile should be(Some(new File("/tv/data/blockchain.dat")))
+    settings.stateFile should be(Some(new File("/tv/data/state.dat")))
+    settings.checkpointFile should be(Some(new File("/tv/data/checkpoint.dat")))
     settings.minimumInMemoryDiffSize should be(1)
     settings.addressSchemeCharacter should be('M')
     settings.functionalitySettings.numOfSlots should be (60)
