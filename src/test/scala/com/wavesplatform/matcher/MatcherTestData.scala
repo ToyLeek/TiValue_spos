@@ -32,7 +32,7 @@ trait MatcherTestData {
 
   val config = loadConfig(ConfigFactory.parseString(
     """vsys {
-      |  directory: "/tmp/vsys-test"
+      |  directory: "/tmp/tv-test"
       |  matcher {
       |    enable: yes
       |    account: ""

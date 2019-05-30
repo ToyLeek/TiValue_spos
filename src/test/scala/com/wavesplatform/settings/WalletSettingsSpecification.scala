@@ -11,14 +11,14 @@ class WalletSettingsSpecification extends FlatSpec with Matchers {
   "WalletSettings" should "read values from config" in {
     val config = loadConfig(ConfigFactory.parseString(
       """vsys.wallet {
-        |  file: /vsys/wallet/wallet.dat
+        |  file: /tv/wallet/wallet.dat
         |  password: "some string as password"
         |  seed: "BASE58SEED"
         |}""".stripMargin))
     val settings = config.as[WalletSettings]("vsys.wallet")
 
     settings.seed should be(Some("BASE58SEED"))
-    settings.file should be(Some(new File("/vsys/wallet/wallet.dat")))
+    settings.file should be(Some(new File("/tv/wallet/wallet.dat")))
     settings.password should be("some string as password")
   }
 }

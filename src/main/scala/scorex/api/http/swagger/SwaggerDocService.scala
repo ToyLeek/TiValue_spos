@@ -17,7 +17,7 @@ class SwaggerDocService(val actorSystem: ActorSystem, val materializer: ActorMat
     "TV Full Node",
     "License: MIT License",
     None,
-    Some(License("MIT License", "https://github.com/virtualeconomy/vsys/blob/master/LICENSE"))
+    Some(License("MIT License", "https://github.com/tivalueproject/TiValue_spos/blob/master/LICENSE"))
   )
 
   //Let swagger-ui determine the host and port
