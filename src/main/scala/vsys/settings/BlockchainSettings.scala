@@ -1,38 +1,72 @@
 package vsys.settings
 
-import scala.concurrent.duration._
+import com.typesafe.config.Config
+import net.ceedubs.ficus.Ficus._
+import net.ceedubs.ficus.readers.ArbitraryTypeReader._
+import net.ceedubs.ficus.readers.EnumerationReader._
 
-import com.wavesplatform.settings.Constants
-import com.wavesplatform.state2.ByteStr
+case class FunctionalitySettings(numOfSlots: Int,
+                                 mintingSpeed: Int,
+                                 allowContractTransactionAfterHeight: Int)
 
+object FunctionalitySettings {
+  val MAINNET = FunctionalitySettings(
+    numOfSlots = 60,
+    mintingSpeed = 1,
+    //TODO
+    //set the value
+    allowContractTransactionAfterHeight = 6100000)
 
-case class GenesisTransactionSettings(recipient: String, amount: Long, slotId: Int)
+  val TESTNET = FunctionalitySettings(
+    numOfSlots = 60,
+    mintingSpeed = 1,
+    //TODO
+    //set the value
+    allowContractTransactionAfterHeight = 4236000)
 
-case class GenesisSettings(
-  blockTimestamp: Long,
-  timestamp: Long,
-  initialBalance: Long,
-  signature: Option[ByteStr],
-  transactions: Seq[GenesisTransactionSettings],
-  initialMintTime: Long,
-  averageBlockDelay: FiniteDuration)
+  val configPath = "vsys.blockchain.custom.functionality"
+}
 
-object GenesisSettings {
-  val MAINNET = GenesisSettings(1557478816060000000L, 1557478816060000000L, 28670000000000000L,
-    ByteStr.decodeBase58("3iuRJ5cqhsJos9iJViU2CrkPEHhyjEJnEMou2pM9sNhkuxwGCafu7TsvCxfUUTpBscNn2fMGbXWFEk8xSpqcoWpf").toOption,
-    List(
-      GenesisTransactionSettings("tvBLKjXW8MrASXyCdYXaBozdTLDc27Bqdkt",28070000000000000L,-1),
-      GenesisTransactionSettings("tvK9LthxPHcwMxxacyCH3u6sm3jpvRJFa4q",100000000000000L,0),
-      GenesisTransactionSettings("tvGezfk7kMgfv3qoZWzDjnoLV2p1JgFoTiE",100000000000000L,4),
-      GenesisTransactionSettings("tvFwJtFqgk624rdZRs7Ty22LbdkTwqA1Ans",100000000000000L,8),
-      GenesisTransactionSettings("tv9v9GyrrM6r6mMEsY4se74egRkFKXpzFNz",100000000000000L,12),
-      GenesisTransactionSettings("tv5wDFLNSWf1BTDzmgEDr1GmJ872PtiyNev",100000000000000L,16),
-      GenesisTransactionSettings("tvE8faTiHTYsZirq1CkWmJGNn32mrkiuSJu",100000000000000L,20)),
-    1557478816000000000L, 60.seconds)
+case class StateSettings(txTypeAccountTxIds: Boolean)
 
-  val TESTNET = GenesisSettings(1557123105006000000L, 1557123105006000000L, Constants.UnitsInVsys * Constants.TotalVsys,
-    ByteStr.decodeBase58("5NQXZMQqfzwc2apbt545GCoN5PqgqqRUKYF4d9irkJU4g3niGDXvbL9LyLgT58nTQCEjwkGWMoqcMRUL5KbxLS9E").toOption,
-    List(
-      GenesisTransactionSettings("u6BpC4w9PfNaFgWYMifZvZZ1PVA3Uu7uGpd", (Constants.UnitsInVsys * Constants.TotalVsys * 0.30).toLong, 0)),
-    1557123105000000000L, 60.seconds)
+object StateSettings {
+  val configPath = "vsys.blockchain.state"
+}
+
+case class BlockchainSettings(addressSchemeCharacter: Char,
+                              minimumInMemoryDiffSize: Int,
+                              functionalitySettings: FunctionalitySettings,
+                              genesisSettings: GenesisSettings,
+                              stateSettings: StateSettings)
+
+object BlockchainType extends Enumeration {
+  val TESTNET = Value("TESTNET")
+  val MAINNET = Value("MAINNET")
+  val CUSTOM = Value("CUSTOM")
+}
+
+object BlockchainSettings {
+  val configPath: String = "vsys.blockchain"
+
+  def fromConfig(config: Config): BlockchainSettings = {
+    val blockchainType = config.as[BlockchainType.Value](s"$configPath.type")
+    val (addressSchemeCharacter, functionalitySettings, genesisSettings) = blockchainType match {
+      case BlockchainType.TESTNET =>
+        ('T', FunctionalitySettings.TESTNET, GenesisSettings.TESTNET)
+      case BlockchainType.MAINNET =>
+        (';', FunctionalitySettings.MAINNET, GenesisSettings.MAINNET)
+      case BlockchainType.CUSTOM =>
+        val addressSchemeCharacter = config.as[String](s"$configPath.custom.address-scheme-character").charAt(0)
+        val functionalitySettings = config.as[FunctionalitySettings](s"$configPath.custom.functionality")
+        val genesisSettings = config.as[GenesisSettings](s"$configPath.custom.genesis")
+        (addressSchemeCharacter, functionalitySettings, genesisSettings)
+    }
+
+    BlockchainSettings(
+      addressSchemeCharacter = addressSchemeCharacter,
+      minimumInMemoryDiffSize = config.as[Int](s"$configPath.minimum-in-memory-diff-blocks"),
+      functionalitySettings = functionalitySettings,
+      genesisSettings = genesisSettings,
+      stateSettings = config.as[StateSettings](s"$configPath.state"))
+  }
 }
