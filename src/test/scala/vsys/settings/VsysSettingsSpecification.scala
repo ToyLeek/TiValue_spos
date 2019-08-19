@@ -12,7 +12,7 @@ class VsysSettingsSpecification extends FlatSpec with Matchers {
     val config = ConfigFactory.load()
     val settings = VsysSettings.fromConfig(config)
 
-    settings.directory should be(home + "/.vsys")
+    settings.directory should be(home + "/.tv")
     settings.loggingLevel should be(LogLevel.INFO)
     settings.networkSettings should not be null
     settings.walletSettings should not be null

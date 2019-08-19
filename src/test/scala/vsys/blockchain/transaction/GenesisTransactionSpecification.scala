@@ -28,7 +28,7 @@ class GenesisTransactionSpecification extends PropSpec with PropertyChecks with 
     val timestamp = 2398762345L
     val signature = GenesisTransaction.generateSignature(defaultRecipient, balance, -1, timestamp)
 
-    val expected = "Hv3aQeyuKNkTHcJZsgUyZmcoc8U4UUDB4KXMQ2j44stoKxq1RhLFNyLXACvE3q16udwQHBq5XRcuDaDRcsNn4Y9"
+    val expected = "5nmwWNd9B3t4kUvDSAFCBWu2uy5WhSTbf9qKFyyaMtWwxqrjmbpCsRfAjzQaVyg7HBkG5wqXnBcvbZKGjKKJCCQ8"
     val actual = Base58.encode(signature)
 
     assert(actual == expected)
@@ -36,7 +36,7 @@ class GenesisTransactionSpecification extends PropSpec with PropertyChecks with 
 
 
   property("GenesisTransaction parse from Bytes should work fine") {
-    val bytes = Base58.decode("UxYztEXtoSnQZ3krg7LNoGGvQCHS1NnJmGLRARbKTLLz3M63XZ3zxn4pjKvM4XQ").get
+    val bytes = Base58.decode("UxYztEXtoSnU6xtaYkvaVFaJpWihprDQwY2PbFFMVfEq62impk9YhVN2S9XS2L6").get
 
     val actualTransaction = parseBytes(bytes).get
 

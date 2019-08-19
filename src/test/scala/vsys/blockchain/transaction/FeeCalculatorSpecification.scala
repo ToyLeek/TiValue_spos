@@ -27,7 +27,7 @@ class FeeCalculatorSpecification extends PropSpec with PropertyChecks with Gener
       |    }
       |    transfer {
       |      VSYS = 10000000
-      |      "JAudr64y6YxTgLn9T5giKKqWGkbMfzhdRAxmNNfn6FJN" = 2
+      |      "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR" = 2
       |    }
       |    reissue {
       |      VSYS = 10000000
@@ -66,7 +66,7 @@ class FeeCalculatorSpecification extends PropSpec with PropertyChecks with Gener
 
   private val mySettings = FeesSettings.fromConfig(config)
 
-  private val WhitelistedAsset = ByteStr.decodeBase58("JAudr64y6YxTgLn9T5giKKqWGkbMfzhdRAxmNNfn6FJN").get
+  private val WhitelistedAsset = ByteStr.decodeBase58("TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR").get
 
   implicit class ConditionalAssert(v: Either[_, _]) {
 
@@ -93,7 +93,7 @@ class FeeCalculatorSpecification extends PropSpec with PropertyChecks with Gener
   property("Transfer transaction with fee in asset") {
     val feeCalculator = new FeeCalculator(mySettings)
     val sender = PrivateKeyAccount(Array.emptyByteArray)
-    val recipient = Address.fromString("AU3AorwRqQhYpRUR3ednaWFvuxAjYCNWd26").right.get
+    val recipient = Address.fromString("u6MwFWLCCegcba5yi78KK5D5bKXUp9SXBsj").right.get
     val tx1: TransferTransaction = TransferTransaction.create(Some(WhitelistedAsset), sender, recipient, 1000000, 100000000,
       Some(WhitelistedAsset), 2, Array.emptyByteArray).right.get
     val tx2: TransferTransaction = TransferTransaction.create(Some(WhitelistedAsset), sender, recipient, 1000000, 100000000,

@@ -46,7 +46,7 @@ class SignedRequestsTest extends FunSuite with Matchers {
       """
         |{
         |"senderPublicKey":"D6HmGZqpXCyAqpz8mCAfWijYDWsPKncKe5v3jq1nTpf5",
-        |"assetId":"Ha35nwsnmYxHRF8UmKG3S523BycBLZFU4FZnjXryKd4L",
+        |"assetId":"TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR",
         |"quantity":100000,"reissuable":true,
         |"fee":100000,"timestamp":1234,
         |"reissuable":true,
@@ -54,7 +54,7 @@ class SignedRequestsTest extends FunSuite with Matchers {
         |}
       """.stripMargin
     val req = Json.parse(json).validate[SignedReissueRequest].get
-    req.assetId shouldBe "Ha35nwsnmYxHRF8UmKG3S523BycBLZFU4FZnjXryKd4L"
+    req.assetId shouldBe "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR"
     req.signature shouldBe "4YWbtkDA7PHH1MCxEUaP12pkNRPNqpJh8X7aagZzLyDNbzgopXJb7NHNNV8rjXcy2WsAKX1wzti7Bishu8u6hwtF"
     req.fee shouldBe 100000L
     req.quantity shouldBe 100000L
@@ -62,7 +62,7 @@ class SignedRequestsTest extends FunSuite with Matchers {
     req.reissuable shouldBe true
 
     val tx = req.toTx.right.get
-    tx.assetId.base58 shouldBe "Ha35nwsnmYxHRF8UmKG3S523BycBLZFU4FZnjXryKd4L"
+    tx.assetId.base58 shouldBe "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR"
     tx.reissuable shouldBe true
     tx.fee shouldBe 100000L
     tx.quantity shouldBe 100000L
@@ -75,9 +75,9 @@ class SignedRequestsTest extends FunSuite with Matchers {
     val json =
       """
         |{
-        |   "recipient":"ATuYeyAT3HBkMQkbZRoyjR75Ajxd1ppWBYV",
+        |   "recipient":"u6MwFWLCCegcba5yi78KK5D5bKXUp9SXBsj",
         |   "timestamp":1479462208828,
-        |   "assetId":"GAXAj8T4pSjunDqpz6Q3bit4fJJN9PD4t8AK8JZVSa5u",
+        |   "assetId":"TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR",
         |   "amount":100000,
         |   "fee":100000,
         |   "senderPublicKey":"D6HmGZqpXCyAqpz8mCAfWijYDWsPKncKe5v3jq1nTpf5",
@@ -86,9 +86,9 @@ class SignedRequestsTest extends FunSuite with Matchers {
         |}
       """.stripMargin
     val req = Json.parse(json).validate[SignedTransferRequest].get
-    req.recipient shouldBe "ATuYeyAT3HBkMQkbZRoyjR75Ajxd1ppWBYV"
+    req.recipient shouldBe "u6MwFWLCCegcba5yi78KK5D5bKXUp9SXBsj"
     req.timestamp shouldBe 1479462208828L
-    req.assetId shouldBe Some("GAXAj8T4pSjunDqpz6Q3bit4fJJN9PD4t8AK8JZVSa5u")
+    req.assetId shouldBe Some("TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR")
     req.amount shouldBe 100000
     req.fee shouldBe 100000
     req.senderPublicKey shouldBe "D6HmGZqpXCyAqpz8mCAfWijYDWsPKncKe5v3jq1nTpf5"
@@ -99,7 +99,7 @@ class SignedRequestsTest extends FunSuite with Matchers {
     Base58.encode(tx.sender.publicKey) shouldBe "D6HmGZqpXCyAqpz8mCAfWijYDWsPKncKe5v3jq1nTpf5"
     tx.timestamp shouldBe 1479462208828L
     tx.attachment shouldBe Base58.decode("A").get
-    tx.assetId.get.base58 shouldBe "GAXAj8T4pSjunDqpz6Q3bit4fJJN9PD4t8AK8JZVSa5u"
+    tx.assetId.get.base58 shouldBe "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR"
     tx.amount shouldBe 100000
     tx.fee shouldBe 100000
     tx.signature.base58 shouldBe "4dPRTW6XyRQUTQwwpuZDCNy1UDHYG9WGsEQnn5v49Lj5uyh4XGDdwtEq3t6ZottweAXHieK32UokHwiTxGFtz9bQ"
@@ -110,21 +110,21 @@ class SignedRequestsTest extends FunSuite with Matchers {
       """
         |{
         |   "senderPublicKey":"FJuErRxhV9JaFUwcYLabFK5ENvDRfyJbRz8FeVfYpBLn",
-        |   "recipient":"ATuYeyAT3HBkMQkbZRoyjR75Ajxd1ppWBYV",
+        |   "recipient":"u6MwFWLCCegcba5yi78KK5D5bKXUp9SXBsj",
         |   "timestamp":1489054107569,
-        |   "assetId":"6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL",
+        |   "assetId":"TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR",
         |   "amount":1000,
         |   "fee":100,
-        |   "feeAssetId":"6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL",
+        |   "feeAssetId":"TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR",
         |   "signature":"UAhYXYdkFAFBuwAuUFP3yw7E8aRTyx56ZL4UPbT4ufomBzVLMRpdW2dCtJmfpCuPPMhGTvdzhXwb7o4ER6HAUpJ",
         |   "attachment":"2Kk7Zsr1e9jsqSBM5hpF"
         |}
       """.stripMargin
     val req = Json.parse(json).validate[SignedTransferRequest].get
-    req.recipient shouldBe "ATuYeyAT3HBkMQkbZRoyjR75Ajxd1ppWBYV"
+    req.recipient shouldBe "u6MwFWLCCegcba5yi78KK5D5bKXUp9SXBsj"
     req.timestamp shouldBe 1489054107569L
-    req.assetId shouldBe Some("6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL")
-    req.feeAssetId shouldBe Some("6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL")
+    req.assetId shouldBe Some("TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR")
+    req.feeAssetId shouldBe Some("TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR")
     req.amount shouldBe 1000
     req.fee shouldBe 100
     req.senderPublicKey shouldBe "FJuErRxhV9JaFUwcYLabFK5ENvDRfyJbRz8FeVfYpBLn"
@@ -135,8 +135,8 @@ class SignedRequestsTest extends FunSuite with Matchers {
     Base58.encode(tx.sender.publicKey) shouldBe "FJuErRxhV9JaFUwcYLabFK5ENvDRfyJbRz8FeVfYpBLn"
     tx.timestamp shouldBe 1489054107569L
     tx.attachment shouldBe Base58.decode("2Kk7Zsr1e9jsqSBM5hpF").get
-    tx.assetId.get.base58 shouldBe "6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL"
-    tx.feeAssetId.get.base58 shouldBe "6MPKrD5B7GrfbciHECg1MwdvRUhRETApgNZspreBJ8JL"
+    tx.assetId.get.base58 shouldBe "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR"
+    tx.feeAssetId.get.base58 shouldBe "TWtsNjpetMNs5BBZHRe3TPRbBiUCXRtQtQcsHpYfR"
     tx.amount shouldBe 1000
     tx.fee shouldBe 100
     tx.signature.base58 shouldBe "UAhYXYdkFAFBuwAuUFP3yw7E8aRTyx56ZL4UPbT4ufomBzVLMRpdW2dCtJmfpCuPPMhGTvdzhXwb7o4ER6HAUpJ"
